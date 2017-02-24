@@ -11,8 +11,8 @@ console.log("creating app")
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-      templateUrl: "partials/login.html"
-      controller: "all-Tasks"
+      templateUrl: "partials/login.html",
+      controller: "Login"
     })
 
     .when("/alltasks", {
@@ -21,7 +21,7 @@ app.config(function($routeProvider) {
     })
     .when("/create", {
         templateUrl: "partials/new_item.html",
-        controller: "Login"
+        controller: "Create-Task"
     })
     .otherwise('/')
     console.log("Configuring routes")

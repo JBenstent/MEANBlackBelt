@@ -4,8 +4,13 @@ View / Template for the form creating new item
  -->
 
 
-<h3>Create Task</h3>
+<h3>Put the question and options here</h3>
+<a href="#!/">Cancel</a>
 <form>
-  <p>Task:</p><input type="text" ng-model="TaskFormInfo" value="">
-  <input type="submit" value="Create" ng-click='createTask()'>Submit
+  <p>Question:</p><input type="text" ng-model="poll" value="">
+  <p>Option 1:</p><input type="text" ng-model="option1" value="">
+  <p>Option 2:</p><input type="text" ng-model="option2" value="">
+  <p>Option 3:</p><input type="text" ng-model="option3" value="">
+  <p>Option 4:</p><input type="text" ng-model="option4" value="">
+  <input type="submit" value="Create Poll" ng-click='createPoll()'>
 </form>

@@ -6,7 +6,10 @@ responses
 
 console.log("Loaded: /server/controllers/items.js")
 var mongoose = require('mongoose')
-var Task = mongoose.model("Task")
+var Poll = mongoose.model("Poll")
+var User = mongoose.model('User')
+
+
 
 module.exports = {
     index: function(request, response) {
@@ -14,38 +17,47 @@ module.exports = {
 
     },
     create: function(request, response) {
-        var task = new Task({
-            task: request.body.task,
-            status: 'ToDo'
-        })
-        task.save(function(err) {
-            if (err) {
-                console.log('Error occured:', err)
-            } else {
-                response.json(task)
-            }
-        })
-      },
+
+      console.log('THIS IS HITTING THE REQUEST.BODY',request.body)
+
+      var poll = new Poll({
+        poll: request.body.poll,
+        option1: request.body.option1,
+        option2: request.body.option2,
+        option3: request.body.option3,
+        option4: request.body.option4,
+      })
+      poll.save(function(err) {
+        if (err) {
+          console.log('Error occured:', err)
+        } else {
+        console.log('POLL INFO:', poll)
+          response.json(poll)
+        }
+      })
+
+    },
+
 
 
     retrieve: function(request, response) {
-      Task.find({}, function(err, tasks) {
-        console.log("This is all task information", tasks)
-        response.json({tasks: tasks})
+      Poll.find({}, function(err, polls) {
+        // console.log("This is all task information", polls)
+        response.json({polls: polls})
         })
       },
 
       update: function(request, response) {
-        Task.findOne({_id:request.body.task_id}, function(err, task){
+        Task.findOne({_id:request.body.task_id}, function(err, poll){
           console.log('TASK', task)
-          task.status = request.body.NewStatus
+          // poll.status = request.body.NewStatus
 
-          task.save(function(err) {
+          poll.save(function(err) {
             if (err) {
               console.log('this is an error:', err)
             } else {
               console.log('SUCCESSFULLY UDPATED TASK STATUS:')
-              response.json(task)
+              response.json(poll)
             }
         })
 
@@ -54,17 +66,26 @@ module.exports = {
       },
 
       createuser: function(request, response) {
-      //   User.find({username: request.body.username}, function(err, user) {
-      //     if (err) {
-      //       console.log(err)
-      //     } else if (user){
-      //       request.session.userID = user._id
-      //       // request.session.name = username.
-      //
-      //
-      //     }
-      //
-      //
-      //   })
+
+        User.findOne({username: request.body.username}, function(err, user) {
+          if (err) {
+            console.log(err)
+          } else if (user) {
+            response.json(user)
+          } else {
+            var user = new User ({
+              username: request.body.username
+            })
+            user.save(function(err) {
+                if (err) {
+                    console.log('Error occured:', err)
+                } else {
+                  console.log('user successfully added')
+                    response.json(user)
+                }
+            })
+          }
+        })
+
       }
     }

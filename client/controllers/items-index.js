@@ -3,7 +3,12 @@
 the logic for items-index partial, will connect the factory with the template
 */
 
-app.controller("all-Tasks", function(taskFactory, $scope) {
+app.controller("all-Tasks", function(taskFactory, $scope, $location) {
+  $scope.user = taskFactory.user
+
+  if (taskFactory.user == undefined) {
+    $location.url('/')
+  }
 
 taskFactory.getData(function(tasks) {
   $scope.tasks = tasks

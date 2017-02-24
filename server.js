@@ -26,6 +26,6 @@ require("./server/config/mongoose");
 require("./server/config/routes")(app);
 
 
-app.listen(12345, function() {
-    console.log('Listening on 12345');
+app.listen(27017, function() {
+    console.log('Listening on 27017');
 })

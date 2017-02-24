@@ -8,14 +8,21 @@ console.log("Loaded: /server/models/item.js")
 var mongoose = require("mongoose")
 
 var UserSchema = mongoose.Schema({
-  username: String
+  username: {type:String, unique: true}
 })
-var TaskSchema = mongoose.Schema({
-    task: String,
-    status: String
-});
+
+
+var PollSchema = mongoose.Schema({
+    poll: String,
+    option1: String,
+    option2: String,
+    option3: String,
+    option4: String,
+    username: String,
+}, {timestamps: true});
 
 
 
-mongoose.model("Task", TaskSchema);
+
 mongoose.model("User", UserSchema);
+mongoose.model("Poll", PollSchema);
